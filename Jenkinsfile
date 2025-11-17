@@ -41,10 +41,10 @@ pipeline {
             deleteDir()
         }
         success {
-            echo "This section runs when pipeline success"
+            echo "This section runs when pipeline success."
         }
         failure {
-            echo "This section runs when pipeline failed"
+            echo "This section runs when pipeline failed."
             echo "Thankyou for the opportunity."
         }
     }
