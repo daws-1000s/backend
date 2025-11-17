@@ -28,7 +28,7 @@ pipeline {
         stage ('Dokcer build') {
             steps {
                 sh """
-                docker build -t mlndockerhub/backend: ${appVersion}
+                docker build -t mlndockerhub/backend:${appVersion} .
                 docker images
             """    
             }
