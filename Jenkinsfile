@@ -25,35 +25,14 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage ('Deploy') {
-            when {
-                expression {env.GIT_BRANCH = "origin/main"}
-            }
+        stage ('Dokcer build') {
             steps {
-                sh 'echo This is Deploy'
+                sh """
+                docker build -t mlndockerhub/backend: ${appVersion}
+                docker images
+            """    
             }
-        }
-        stage ('print params') {
-            steps {
-                echo "Hello ${params.PERSON}"
-                echo "Biography: ${params.BIOGRAPHY}"
-                echo "Toggle: ${params.TOGGLE}"
-                echo "Choice: ${params.CHOICE}"
-                echo "Password: ${params.PASSWORD}"
-            }
-        }
-        stage ('Approval') {
-            input {
-                message "shouls we continue?"
-                ok "yes, we should."
-                parameters {
-                    string(name: 'PERSON', defaultValue: 'Mr jenkins', description: 'who should I say hello to?')
-                }
-            }
-            steps {
-                echo "Hello, ${PERSON}, nice to meet you."
-            }
-        }
+        }     
     }
 
     post {
